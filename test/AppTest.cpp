@@ -19,11 +19,12 @@ TEST(GradationTest, Test_1)
 {
     Outcomes* consequence = new Outcomes;
 
-    int number_of_conditions = 0;
-    int number_of_incognizants = 0;
-    vector<vector<double>> system;
+    int number_of_equations = 2;
+    int number_of_incognizants = 2;
+    vector<vector<double>> system{ {1, 2, 4},
+                                   {2, 1, 7} };
 
-    vector<double> result = get_gradation(number_of_conditions, number_of_incognizants, system);
+    vector<double> result = get_gradation(number_of_equations, number_of_incognizants, system);
 
     EXPECT_EQ(result, consequence -> outcome_test_1);
 }
