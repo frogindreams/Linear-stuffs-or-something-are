@@ -6,5 +6,6 @@ using std::vector;
 #define LMODULES_H
 
 vector<double> get_gradation(int, int, vector<vector<double>>);
+vector<int> get_free_vars();
 
 #endif
