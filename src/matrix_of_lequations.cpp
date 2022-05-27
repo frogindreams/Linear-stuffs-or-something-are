@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 using std::vector;
 using std::cout;
@@ -54,7 +55,7 @@ bool check_consistency(int number_of_equations, int number_of_incognizants, vect
     return true;
 }
 
-void get_triangular_matrix(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, double EPS)
+vector<vector<double>> get_triangular_matrix(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, double EPS)
 {
     int ultimate_index;
     double factor;
@@ -94,6 +95,8 @@ void get_triangular_matrix(int number_of_equations, int number_of_incognizants, 
             }
         }
     }
+
+    return system;
 }
 
 vector<double> get_solutions(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, double EPS)
@@ -131,7 +134,6 @@ vector<double> get_solutions(int number_of_equations, int number_of_incognizants
 
     if ( !counter_of_fvars )
     {
-        /* make an empty vector: free_vars */
         free_vars.clear();
         counter_of_fvars = 1;
 
@@ -143,9 +145,8 @@ vector<double> get_solutions(int number_of_equations, int number_of_incognizants
             {
                 if ( floor == current_item )
                 {
-                    cout << temporary_box << '\n';
-                    temporary_box = (double)temporary_box / system[floor][current_item];
-                    cout << system[floor][current_item] << '\n';
+                    temporary_box = temporary_box / system[floor][current_item];
+                    break;
                 }
 
                 else
@@ -165,7 +166,6 @@ vector<double> get_solutions(int number_of_equations, int number_of_incognizants
     else
     {
         counter_of_fvars = 1;
-        /* for non-square cases */
         int bound;
 
         if ( number_of_equations <= number_of_incognizants )
@@ -184,7 +184,7 @@ vector<double> get_solutions(int number_of_equations, int number_of_incognizants
                     if ( abs(system[floor][current_item]) < EPS ) { break; }
                     else
                     {
-                        temporary_box = (double)temporary_box / system[floor][current_item];
+                        temporary_box = temporary_box / system[floor][current_item];
                         outcome.insert(outcome.begin(), temporary_box);
                     }
                 }
@@ -205,7 +205,7 @@ vector<double> get_gradation(int number_of_equations, int number_of_incognizants
 {
     const double EPS = 1e-20;
 
-    get_triangular_matrix(number_of_equations, number_of_incognizants, system, EPS);
+    system = get_triangular_matrix(number_of_equations, number_of_incognizants, system, EPS);
 
     if ( check_consistency(number_of_equations, number_of_incognizants, system, EPS) )
     {
@@ -219,6 +219,11 @@ vector<double> get_gradation(int number_of_equations, int number_of_incognizants
                 free_vars.erase(free_vars.begin() + iter_for_fv);
             }
         }
+    }
+
+    for (int iter = 0; iter < outcome.size(); iter++)
+    {
+        outcome[iter] = round(outcome[iter] * 100) / 100; 
     }
 
     return outcome;
