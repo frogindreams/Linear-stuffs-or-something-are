@@ -10,7 +10,7 @@ class Outcomes
     private:
         /* */
     public:
-        vector<int> current_sol_default;
+        vector<double> current_sol_default;
 
         vector<double> result_test_1{ 3.33, 0.33 };
         vector<int> r_free_vars_test_1;
@@ -47,19 +47,19 @@ class Outcomes
 
         vector<double> result_test_13{ 3.00, 0.00, 2.00 };
         vector<int> r_free_vars_test_13{ 3 };
-        vector<int> current_sol_test_13{ 2 };
+        vector<double> current_sol_test_13{ 2.00 };
 
         vector<double> result_test_14{ 3.00, 0.00, 2.00 };
         vector<int> r_free_vars_test_14{ 3 };
-        vector<int> current_sol_test_14{ 2 };
+        vector<double> current_sol_test_14{ 2.00 };
 
         vector<double> result_test_15{ 4.00, 1.00, 1.00 };
         vector<int> r_free_vars_test_15{ 1, 3 };
-        vector<int> current_sol_test_15{ 4, 1 };
+        vector<double> current_sol_test_15{ 4.00, 1.00 };
 
-        vector<double> result_test_16{ -1.67, 1.00, 2.00, -0.67, 0.00 };
-        vector<int> r_free_vars_test_16{ 2, 3 };
-        vector<int> current_sol_test_16{ 1, 2 };
+        vector<double> result_test_16{ -1.67, 1.01, 2.00, -0.67, 0.00 };
+        vector<int> r_free_vars_test_16{ 4, 5 };
+        vector<double> current_sol_test_16{ -0.67, 0.00 };
 
         Outcomes() {}
 };

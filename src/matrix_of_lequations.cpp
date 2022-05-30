@@ -10,7 +10,7 @@ using std::cout;
 vector<int> free_vars;
 vector<int> free_vars_final;
 vector<double> outcome;
-vector<int> current_sol;
+vector<double> current_sol;
 
 
 void clear_all() 
@@ -103,7 +103,7 @@ vector<vector<double>> get_triangular_matrix(int number_of_equations, int number
     return system;
 }
 
-vector<double> get_solutions(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, double EPS, vector<int> current_sol)
+vector<double> get_solutions(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, double EPS, vector<double> current_sol)
 {
     int counter_of_fvars = 0;
     double temporary_box;
@@ -219,16 +219,13 @@ vector<double> get_solutions(int number_of_equations, int number_of_incognizants
     return outcome;
 }
 
-vector<double> get_gradation(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, vector<int> current_solution) 
+vector<double> get_gradation(int number_of_equations, int number_of_incognizants, vector<vector<double>> system, vector<double> current_solution) 
 {
     clear_all();
     current_sol = current_solution;
     const double EPS = 1e-200;
 
     system = get_triangular_matrix(number_of_equations, number_of_incognizants, system, EPS);
-
-    screen_on(system);
-    cout << '\n';
 
     if ( check_consistency(number_of_equations, number_of_incognizants, system, EPS) )
     {
